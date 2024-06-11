@@ -13,7 +13,7 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: [true, "Please enter your email"],
   },
-  date: {
+  createdAt: {
     type: Date,
     default: Date.now,
   },
