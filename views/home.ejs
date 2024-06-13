@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Birthday Reminder App</title>
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header class="header">
+        <h1>Birthday Reminder App</h1>
+      </header>
+      <form class="add-form" action="/users" method="POST">
+        <div class="form-control">
+          <label>Username</label>
+          <input
+            type="text"
+            placeholder="Enter Username"
+            name="username"
+            id="username"
+            required
+          />
+        </div>
+
+        <div class="form-control">
+          <label>Email</label>
+          <input
+            type="email"
+            placeholder="Enter Email"
+            name="email"
+            id="email"
+            required
+          />
+        </div>
+
+        <div class="form-control">
+          <label>Birthday Date</label>
+          <input
+            type="date"
+            placeholder="Add Birthday Date (Format: MM/DD/YYYY)"
+            name="date_of_birth"
+            id="date_of_birth"
+            required
+          />
+        </div>
+
+        <button type="submit" class="btn btn-block">Save Birthday</button>
+      </form>
+
+      <% if (users == "") { %>
+      <h6>No birthday saved yet!</h6>
+      <% } else { %> <% users.forEach((user) => { %>
+      <div class="birthday">
+        <h4><%= user.username %></h4>
+        <p><%= user.date_of_birth %></p>
+      </div>
+      <% }) %> <% } %>
+    </div>
+  </body>
+</html>
