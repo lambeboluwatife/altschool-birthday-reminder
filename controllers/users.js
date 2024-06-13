@@ -1,9 +1,9 @@
 const User = require("../models/User");
-const schedule = require("node-schedule");
+const moment = require("moment");
 
 exports.addUser = async (req, res, next) => {
   try {
-    const { date_of_birth, username, email, createdAt } = req.body;
+    const { username, email, date_of_birth, createdAt } = req.body;
 
     const newUser = new User({
       date_of_birth,
@@ -12,10 +12,7 @@ exports.addUser = async (req, res, next) => {
       createdAt,
     });
     const user = await newUser.save();
-    return res.status(201).json({
-      success: true,
-      data: user,
-    });
+    res.status(201).redirect("/");
   } catch (err) {
     if (err.name === "ValidationError") {
       const messages = Object.values(err.errors).map((val) => val.message);

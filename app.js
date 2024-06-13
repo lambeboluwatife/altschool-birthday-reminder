@@ -18,6 +18,14 @@ const app = express();
 
 app.use(express.json());
 
+// EJS
+app.set("view engine", "ejs");
+
+app.use(express.static(__dirname + "/public"));
+
+// Bodyparser
+app.use(express.urlencoded({ extended: false }));
+
 // Express Session
 app.use(
   session({
@@ -78,7 +86,18 @@ schedule.scheduleJob("43 16 * * *", () => {
   sendBirthdayEmails();
 });
 
-app.get("/", (req, res) => res.send("Birthday Reminder (Cron Jobs)"));
+app.get("/", async (req, res) => {
+  try {
+    const users = await User.find();
+
+    res.status(200).render("home", { users: users });
+  } catch (err) {
+    return res.status(500).json({
+      success: false,
+      error: "Server Error",
+    });
+  }
+});
 
 app.use("/users", users);
 
